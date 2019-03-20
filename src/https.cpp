@@ -466,9 +466,16 @@ std::string tgbot::utils::http::multiPartUpload(
   curl_formadd(&multiPost, &end, CURLFORM_COPYNAME, "chat_id",
                CURLFORM_COPYCONTENTS, chatId.c_str(), CURLFORM_END);
 
-  curl_formadd(&multiPost, &end, CURLFORM_COPYNAME, type.c_str(),
-               CURLFORM_CONTENTTYPE, mimeType.c_str(), CURLFORM_FILE,
-               filename.c_str(), CURLFORM_END);
+  curl_formadd(&multiPost, &end, CURLFORM_COPYNAME,
+               type.c_str(),
+               CURLFORM_CONTENTTYPE, mimeType.c_str(),
+               CURLFORM_BUFFER,
+               "stats.png",
+               CURLFORM_BUFFERPTR,
+               filename.c_str(),
+               CURLFORM_BUFFERLENGTH,
+               filename.size(),
+               CURLFORM_END);
 
   if (caption != "")
     curl_formadd(&multiPost, &end, CURLFORM_COPYNAME, "caption",
